@@ -1,13 +1,10 @@
-import React, { useContext, useEffect } from 'react'
-import NoteContext from '../context/notes/NoteContext'
+import React from 'react'
+// import NoteContext from '../context/notes/NoteContext'
 
 const About = () => {
-    const a = useContext(NoteContext)
-    useEffect(() =>{
-        a.Update()
-    }, [])
+    
     return (
-        <h1>My name is {a.state.name} and I am in {a.state.class} Class</h1>
+        <h1>My name is Sagar and I am in 10th Class</h1>
     )
 }
 
