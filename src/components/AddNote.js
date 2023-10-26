@@ -28,9 +28,11 @@ const AddNote = () => {
               type="text"
               className="form-control"
               id="title"
+              placeholder="Description should be more than 3 Words"
               aria-describedby="title"
               name="title"
               onChange={onChange}
+              minLength={5} required
             />
           </div>
           <div className="mb-3">
@@ -43,6 +45,8 @@ const AddNote = () => {
               className="form-control"
               id="description"
               onChange={onChange}
+              minLength={5} required
+              placeholder="Description should be more than 5 Words"
             />
           </div>
           <div className="mb-3">
@@ -54,11 +58,14 @@ const AddNote = () => {
               name="tag"
               className="form-control"
               id="tag"
+              placeholder="Please add Tag"
               onChange={onChange}
+              minLength={5} required
             />
           </div>
 
           <button
+           disabled={note.title.length<5 || note.description.length<5}
             type="submit" 
             className="btn btn-primary"
             onClick={handelClick}
