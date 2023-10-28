@@ -3,7 +3,7 @@ import NoteContext from "../context/notes/NoteContext";
 import Notesitem from "./Notesitem";
 import AddNote from "./AddNote";
 
-const Notes = () => {
+const Notes = (props) => {
   const context = useContext(NoteContext);
   const { notes, getNotes, editNote } = context;
 
@@ -29,11 +29,13 @@ const Notes = () => {
       edescription: currentNote.description,
       etag: currentNote.tag,
     });
+    
   };
 
   const handleClick = (e) => {
     editNote(note.id, note.etitle, note.edescription, note.etag);
     refClose.current.click();
+    props.showAlert("Updated successfully", "success");
   };
 
   const onChange = (e) => {
@@ -42,7 +44,7 @@ const Notes = () => {
 
   return (
     <>
-      <AddNote />
+      <AddNote showAlert={props.showAlert}/>
       <button
         ref={ref}
         type="button"
@@ -86,7 +88,8 @@ const Notes = () => {
                     value={note.etitle}
                     aria-describedby="emailHelp"
                     onChange={onChange}
-                    minLength={5} required
+                    minLength={5}
+                    required
                   />
                 </div>
                 <div className="mb-3">
@@ -101,8 +104,8 @@ const Notes = () => {
                     name="edescription"
                     value={note.edescription}
                     onChange={onChange}
-                    minLength={5} required
-                    
+                    minLength={5}
+                    required
                   />
                 </div>
                 <div className="mb-3">
@@ -116,7 +119,8 @@ const Notes = () => {
                     name="etag"
                     value={note.etag}
                     onChange={onChange}
-                    minLength={5} required
+                    minLength={5}
+                    required
                   />
                 </div>
               </form>
@@ -131,7 +135,9 @@ const Notes = () => {
                 Close
               </button>
               <button
-                disabled={note.etitle.length<5 || note.edescription.length<5}
+                disabled={
+                  note.etitle.length < 5 || note.edescription.length < 5
+                }
                 onClick={handleClick}
                 type="button"
                 className="btn btn-primary"
@@ -151,7 +157,7 @@ const Notes = () => {
           </div>
           {notes.map((note) => {
             return (
-              <Notesitem key={note._id} updateNote={updateNote} note={note} />
+              <Notesitem key={note._id} updateNote={updateNote} showAlert={props.showAlert} note={note} />
             );
           })}
         </div>
